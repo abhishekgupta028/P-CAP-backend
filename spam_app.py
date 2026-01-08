@@ -35,7 +35,11 @@ def ensure_nltk_data():
 ensure_nltk_data()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=[
+    'http://localhost:3000',
+    'http://localhost:5000',
+    'https://p-cap-frontend.vercel.app'
+], supports_credentials=True)
 
 # Configuration - Use absolute path relative to this file
 BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))

@@ -10,7 +10,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=[
+    'http://localhost:3000',
+    'http://localhost:5000',
+    'https://p-cap-frontend.vercel.app'
+], supports_credentials=True)
 
 # Initialize database connection pool
 init_db_pool()

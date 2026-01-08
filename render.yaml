@@ -1,0 +1,94 @@
+services:
+  # Main Express Server
+  - type: web
+    name: pcap-main-server
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: FRONTEND_URL
+        value: https://p-cap-frontend.vercel.app
+      - key: CORS_ORIGIN
+        value: https://p-cap-frontend.vercel.app
+      - key: FLASK_ML_PORT
+        value: 5001
+      - key: SPAM_PORT
+        value: 5002
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_DATABASE_URL
+        sync: false
+      - key: NEON_DATABASE_URL
+        sync: false
+
+  # ML Fraud Detection Service
+  - type: web
+    name: pcap-ml-fraud
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python -c "import nltk; nltk.download('stopwords'); nltk.download('punkt')"
+    startCommand: gunicorn -w 2 -b 0.0.0.0:5001 --timeout 120 app:app
+    healthCheckPath: /api/ml/health
+    envVars:
+      - key: PORT
+        value: 5001
+      - key: FLASK_ENV
+        value: production
+
+  # Spam Detection Service
+  - type: web
+    name: pcap-spam-detection
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python -c "import nltk; nltk.download('stopwords'); nltk.download('punkt'); nltk.download('punkt_tab')"
+    startCommand: gunicorn -w 2 -b 0.0.0.0:5002 --timeout 120 spam_app:app
+    healthCheckPath: /api/spam/health
+    envVars:
+      - key: PORT
+        value: 5002
+      - key: FLASK_ENV
+        value: production
+
+  # Database API Service (Optional - if using PostgreSQL directly)
+  - type: web
+    name: pcap-db-api
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -w 2 -b 0.0.0.0:5003 --timeout 60 db_api:app
+    healthCheckPath: /api/db/health
+    envVars:
+      - key: PORT
+        value: 5003
+      - key: DB_HOST
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        sync: false
+      - key: NEON_DATABASE_URL
+        sync: false
+
+  # Prisma API Service
+  - type: web
+    name: pcap-prisma-api
+    env: node
+    plan: free
+    buildCommand: npm install && npx prisma generate
+    startCommand: node prismaApi.js
+    healthCheckPath: /api/prisma/health
+    envVars:
+      - key: PORT
+        value: 5004
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_DATABASE_URL
+        sync: false
