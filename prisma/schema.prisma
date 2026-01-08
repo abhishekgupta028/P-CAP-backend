@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+// User model - stores authenticated users from Clerk
+model User {
+  id            Int       @id @default(autoincrement())
+  clerkUserId   String    @unique @map("clerk_user_id")
+  email         String    @unique
+  name          String?
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  fraudLogs     FraudLog[]
+  spamLogs      SpamLog[]
+  
+  @@map("users")
+}
+
+// Fraud detection logs
+model FraudLog {
+  id                  Int       @id @default(autoincrement())
+  userId              Int?      @map("user_id")
+  transactionAmount   Decimal?  @map("transaction_amount") @db.Decimal(10, 2)
+  transactionType     String?   @map("transaction_type") @db.VarChar(100)
+  isFraud             Boolean?  @map("is_fraud")
+  confidence          Decimal?  @db.Decimal(5, 2)
+  riskLevel           String?   @map("risk_level") @db.VarChar(50)
+  transactionData     Json?     @map("transaction_data")
+  createdAt           DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  user                User?     @relation(fields: [userId], references: [id])
+  
+  @@map("fraud_logs")
+}
+
+// Spam detection logs
+model SpamLog {
+  id                  Int       @id @default(autoincrement())
+  userId              Int?      @map("user_id")
+  message             String
+  isSpam              Boolean?  @map("is_spam")
+  confidence          Decimal?  @db.Decimal(5, 2)
+  spamProbability     Decimal?  @map("spam_probability") @db.Decimal(5, 2)
+  hamProbability      Decimal?  @map("ham_probability") @db.Decimal(5, 2)
+  riskLevel           String?   @map("risk_level") @db.VarChar(50)
+  createdAt           DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  user                User?     @relation(fields: [userId], references: [id])
+  
+  @@map("spam_logs")
+}
+
