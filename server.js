@@ -11,6 +11,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;  // FIX: Changed from 5001 to 5000 to avoid conflict with Fraud ML
 const FLASK_ML_PORT = process.env.FLASK_ML_PORT || 5001;
 const SPAM_PORT = process.env.SPAM_PORT || 5002;
+const DB_API_PORT = process.env.DB_API_PORT || 5003;
+const PRISMA_API_PORT = process.env.PRISMA_API_PORT || 5004;
 
 // Middleware
 app.use(helmet());
@@ -187,6 +189,302 @@ app.post('/api/spam/batch-detect', async (req, res) => {
       error: 'Batch spam detection failed',
       details: error.message
     });
+  }
+});
+
+// ============================================
+// DATABASE API PROXY ROUTES (Port 5003)
+// ============================================
+
+// User management endpoints
+app.post('/api/db/user/create', async (req, res) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:${DB_API_PORT}/api/db/user/create`,
+      req.body,
+      { headers: { 'Content-Type': 'application/json' }, timeout: 5000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Database API error:', error.message);
+    res.status(error.response?.status || 500).json(
+      error.response?.data || { success: false, error: 'Database service unavailable' }
+    );
+  }
+});
+
+app.get('/api/db/user/get/:clerk_user_id', async (req, res) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:${DB_API_PORT}/api/db/user/get/${req.params.clerk_user_id}`,
+      { timeout: 5000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Database API error:', error.message);
+    res.status(error.response?.status || 500).json(
+      error.response?.data || { success: false, error: 'Database service unavailable' }
+    );
+  }
+});
+
+app.get('/api/db/user/:user_id', async (req, res) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:${DB_API_PORT}/api/db/user/${req.params.user_id}`,
+      { timeout: 5000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Database API error:', error.message);
+    res.status(error.response?.status || 500).json(
+      error.response?.data || { success: false, error: 'Database service unavailable' }
+    );
+  }
+});
+
+// Fraud logging endpoint
+app.post('/api/db/fraud/log', async (req, res) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:${DB_API_PORT}/api/db/fraud/log`,
+      req.body,
+      { headers: { 'Content-Type': 'application/json' }, timeout: 5000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Database API error:', error.message);
+    res.status(error.response?.status || 500).json(
+      error.response?.data || { success: false, error: 'Database service unavailable' }
+    );
+  }
+});
+
+// Spam logging endpoint
+app.post('/api/db/spam/log', async (req, res) => {
+  try {
+    console.log('📡 Proxying spam log to database API:', req.body);
+    const response = await axios.post(
+      `http://localhost:${DB_API_PORT}/api/db/spam/log`,
+      req.body,
+      { headers: { 'Content-Type': 'application/json' }, timeout: 5000 }
+    );
+    console.log('✅ Database API response:', response.data);
+    res.json(response.data);
+  } catch (error) {
+    console.error('❌ Database API error:', error.message);
+    res.status(error.response?.status || 500).json(
+      error.response?.data || { success: false, error: 'Database service unavailable' }
+    );
+  }
+});
+
+// Get fraud logs
+app.get('/api/db/fraud/logs', async (req, res) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:${DB_API_PORT}/api/db/fraud/logs`,
+      { params: req.query, timeout: 10000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Database API error:', error.message);
+    res.status(error.response?.status || 500).json(
+      error.response?.data || { success: false, error: 'Database service unavailable' }
+    );
+  }
+});
+
+// Get spam logs
+app.get('/api/db/spam/logs', async (req, res) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:${DB_API_PORT}/api/db/spam/logs`,
+      { params: req.query, timeout: 10000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Database API error:', error.message);
+    res.status(error.response?.status || 500).json(
+      error.response?.data || { success: false, error: 'Database service unavailable' }
+    );
+  }
+});
+
+// Get all spam logs (for dashboard)
+app.get('/api/db/spam/all', async (req, res) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:${DB_API_PORT}/api/db/spam/all`,
+      { params: req.query, timeout: 10000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Database API error:', error.message);
+    res.status(error.response?.status || 500).json(
+      error.response?.data || { success: false, error: 'Database service unavailable' }
+    );
+  }
+});
+
+// Get all fraud logs (for dashboard)
+app.get('/api/db/fraud/all', async (req, res) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:${DB_API_PORT}/api/db/fraud/all`,
+      { params: req.query, timeout: 10000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Database API error:', error.message);
+    res.status(error.response?.status || 500).json(
+      error.response?.data || { success: false, error: 'Database service unavailable' }
+    );
+  }
+});
+
+// Get spam history for user
+app.get('/api/db/spam/history/:user_id', async (req, res) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:${DB_API_PORT}/api/db/spam/history/${req.params.user_id}`,
+      { params: req.query, timeout: 10000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Database API error:', error.message);
+    res.status(error.response?.status || 500).json(
+      error.response?.data || { success: false, error: 'Database service unavailable' }
+    );
+  }
+});
+
+// Get fraud history for user
+app.get('/api/db/fraud/history/:user_id', async (req, res) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:${DB_API_PORT}/api/db/fraud/history/${req.params.user_id}`,
+      { params: req.query, timeout: 10000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Database API error:', error.message);
+    res.status(error.response?.status || 500).json(
+      error.response?.data || { success: false, error: 'Database service unavailable' }
+    );
+  }
+});
+
+// Get overall statistics
+app.get('/api/db/stats/overall', async (req, res) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:${DB_API_PORT}/api/db/stats/overall`,
+      { timeout: 10000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Database API error:', error.message);
+    res.status(error.response?.status || 500).json(
+      error.response?.data || { success: false, error: 'Database service unavailable' }
+    );
+  }
+});
+
+// Get user statistics
+app.get('/api/db/stats/user/:user_id', async (req, res) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:${DB_API_PORT}/api/db/stats/user/${req.params.user_id}`,
+      { timeout: 10000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Database API error:', error.message);
+    res.status(error.response?.status || 500).json(
+      error.response?.data || { success: false, error: 'Database service unavailable' }
+    );
+  }
+});
+
+// Database health check
+app.get('/api/db/health', async (req, res) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:${DB_API_PORT}/api/db/health`,
+      { timeout: 5000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Database service unavailable' });
+  }
+});
+
+// ============================================
+// PRISMA API PROXY ROUTES (Port 5004)
+// ============================================
+
+// Prisma user upsert
+app.post('/api/prisma/user/upsert', async (req, res) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:${PRISMA_API_PORT}/api/prisma/user/upsert`,
+      req.body,
+      { headers: { 'Content-Type': 'application/json' }, timeout: 5000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Prisma API error:', error.message);
+    res.status(error.response?.status || 500).json(
+      error.response?.data || { success: false, error: 'Prisma service unavailable' }
+    );
+  }
+});
+
+// Prisma fraud log
+app.post('/api/prisma/fraud/log', async (req, res) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:${PRISMA_API_PORT}/api/prisma/fraud/log`,
+      req.body,
+      { headers: { 'Content-Type': 'application/json' }, timeout: 5000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Prisma API error:', error.message);
+    res.status(error.response?.status || 500).json(
+      error.response?.data || { success: false, error: 'Prisma service unavailable' }
+    );
+  }
+});
+
+// Prisma spam log
+app.post('/api/prisma/spam/log', async (req, res) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:${PRISMA_API_PORT}/api/prisma/spam/log`,
+      req.body,
+      { headers: { 'Content-Type': 'application/json' }, timeout: 5000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Prisma API error:', error.message);
+    res.status(error.response?.status || 500).json(
+      error.response?.data || { success: false, error: 'Prisma service unavailable' }
+    );
+  }
+});
+
+// Prisma health check
+app.get('/api/prisma/health', async (req, res) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:${PRISMA_API_PORT}/api/prisma/health`,
+      { timeout: 5000 }
+    );
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Prisma service unavailable' });
   }
 });
 
@@ -410,6 +708,9 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 CyberShield API Server running on port ${PORT}`);
   console.log(`📡 Flask ML Service expected on port ${FLASK_ML_PORT}`);
+  console.log(`📧 Spam ML Service expected on port ${SPAM_PORT}`);
+  console.log(`💾 Database API expected on port ${DB_API_PORT}`);
+  console.log(`🗄️  Prisma API expected on port ${PRISMA_API_PORT}`);
   console.log(`🌐 Frontend expected at ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
   console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
