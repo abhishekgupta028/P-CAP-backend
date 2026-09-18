@@ -24,6 +24,7 @@ model User {
   // Relations
   fraudLogs     FraudLog[]
   spamLogs      SpamLog[]
+  chatLogs      ChatInteraction[]
   
   @@map("users")
 }
@@ -63,4 +64,24 @@ model SpamLog {
   
   @@map("spam_logs")
 }
+
+// AI Chatbot & RAG Suspicious Message Interactions
+model ChatInteraction {
+  id             Int       @id @default(autoincrement())
+  userId         Int?      @map("user_id")
+  clerkUserId    String?   @map("clerk_user_id")
+  message        String
+  queryType      String?   @map("query_type") @db.VarChar(50)
+  classification Json?
+  riskLevel      String?   @map("risk_level") @db.VarChar(50)
+  answer         Json?
+  sources        Json?
+  createdAt      DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  user           User?     @relation(fields: [userId], references: [id])
+  
+  @@map("chat_interactions")
+}
+
 

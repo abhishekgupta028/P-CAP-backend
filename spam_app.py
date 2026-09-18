@@ -238,12 +238,30 @@ def detect_spam():
         else:
             risk_level = 'LOW'
         
+        # Determine threat category
+        lower_msg = message.lower()
+        if not bool(prediction == 1) and spam_prob < 0.5:
+            category = "Legitimate (Ham)"
+        elif any(k in lower_msg for k in ['upi', 'qr code', 'collect request', 'gpay', 'phonepe', 'paytm', 'refund', 'olx', 'scan code']):
+            category = "UPI scam"
+        elif any(k in lower_msg for k in ['otp', 'kyc', 'electricity', 'disconnect', 'power', 'bill unpaid', 'bank account block', 'debit card block', 'vishing']):
+            category = "OTP fraud"
+        elif any(k in lower_msg for k in ['pan card', 'aadhaar', 'cibil', 'loan approved', 'identity', 'passport', 'mule']):
+            category = "Identity theft"
+        elif any(k in lower_msg for k in ['.apk', 'download app', 'anydesk', 'teamviewer', 'quicksupport', 'install', 'trojan', 'malware']):
+            category = "Malware & Ransomware"
+        elif any(k in lower_msg for k in ['click here', 'http', 'https', 'login', 'verify account', 'congratulations', 'won', 'lottery', 'telegram', 'job', 'part time']):
+            category = "Phishing"
+        else:
+            category = "General Spam"
+
         # Prepare response
         result = {
             'success': True,
             'data': {
                 'is_spam': bool(prediction == 1),
                 'spam_label': 'SPAM' if prediction == 1 else 'LEGITIMATE (HAM)',
+                'category': category,
                 'confidence': float(max(spam_prob, ham_prob)),
                 'risk_level': risk_level,
                 'spam_probability': float(spam_prob),

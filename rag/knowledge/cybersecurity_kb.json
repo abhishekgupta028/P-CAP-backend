@@ -1,0 +1,179 @@
+[
+  {
+    "id": "upi-scam-01",
+    "title": "UPI Collect Request & QR Code Scams",
+    "category": "UPI scam",
+    "tags": ["upi", "qr code", "collect request", "olx scam", "refund"],
+    "summary": "Fraudsters send collect requests or fake QR codes claiming you will receive money by scanning or entering your UPI PIN.",
+    "content": "In UPI (Unified Payments Interface) transactions, a UPI PIN is strictly used only for debiting money (sending money), NEVER for receiving money or accepting a refund. Fraudsters list fake items for sale or pretend to buy second-hand goods on OLX/Marketplace and send a QR code or a UPI 'Collect Request' asking the victim to scan it or authorize it to 'receive payment'. Once the victim enters their UPI PIN, money is instantly deducted from their bank account. Never enter your UPI PIN to receive money, cashbacks, or lottery rewards. If a payment app prompts for a PIN, money will leave your account.",
+    "threatIndicators": [
+      "Asking user to enter UPI PIN to receive money or cashback",
+      "Sending a QR code with instructions to scan in Google Pay/PhonePe/Paytm to get a refund",
+      "Creating extreme urgency to accept a collect request before it expires",
+      "Claiming to be an army officer, buyer, or customer care agent offering immediate payment"
+    ],
+    "actionRecommendations": [
+      "Immediately decline any unsolicited UPI collect requests",
+      "Remember: Scanning a QR code or entering a PIN ALWAYS deducts money from your account",
+      "Block the sender's VPA/UPI ID in your payment app",
+      "If scammed, call National Cyber Crime Helpline 1930 immediately within the golden hour to freeze funds"
+    ]
+  },
+  {
+    "id": "upi-scam-02",
+    "title": "Fake Payment Confirmation Screenshots & Spoofed Apps",
+    "category": "UPI scam",
+    "tags": ["fake screenshot", "spoofed paytm", "fake upi receipt", "merchant fraud"],
+    "summary": "Scammers show fabricated payment success screens or send fake bank credit SMS to trick merchants or sellers into handing over goods.",
+    "content": "Fraudsters use fake payment soundbox apps or receipt generators (e.g., Spoof Paytm, FakePe) to generate realistic-looking 'Payment Successful' screens with the seller's name, correct transaction amount, and fake UTR numbers. They may also send fake SMS that mimics bank credit alerts from regular 10-digit numbers instead of official bank sender IDs. Always verify actual credit into your bank account balance or listen for official soundbox confirmation before handing over goods or transferring funds.",
+    "threatIndicators": [
+      "Payment confirmation SMS received from regular 10-digit mobile number instead of official bank sender ID (e.g., VM-HDFCBK, AX-SBIINB)",
+      "Customer rushes without waiting for bank balance update or official soundbox alert",
+      "Mismatched timestamp or typographical errors on the payment screenshot"
+    ],
+    "actionRecommendations": [
+      "Verify funds inside your banking app balance rather than trusting screenshots",
+      "Check the 12-digit UPI reference (UTR) number against your statement",
+      "Do not refund 'accidental excess transfers' before confirming real clearance"
+    ]
+  },
+  {
+    "id": "otp-fraud-01",
+    "title": "OTP Theft via Urgent Banking & KYC Expiry Alerts",
+    "category": "OTP fraud",
+    "tags": ["otp", "kyc fraud", "bank account blocked", "vishing", "social engineering"],
+    "summary": "Scammers send urgent SMS warnings claiming your bank account, PAN, or debit card will be suspended unless KYC is updated via a link or by sharing an OTP.",
+    "content": "One-Time Passwords (OTPs) are dynamic security tokens providing secondary authentication for financial transfers, login sessions, and card-not-present transactions. Scammers impersonate bank customer care executives, telecom operators, or electricity board officials claiming that your account will be permanently blocked or electricity disconnected within hours unless you verify identity. They trigger an online transaction or password reset on your account and pressure you to read out the OTP or enter it into a phishing link. Banks and legitimate institutions will never call or message asking for your OTP, CVV, or ATM PIN under any circumstances.",
+    "threatIndicators": [
+      "SMS claiming 'Account blocked within 24 hrs due to pending KYC update'",
+      "Caller demanding OTP to 'cancel unauthorized transaction' or 'complete KYC verification'",
+      "Use of high-pressure urgency tactics and threatening imminent service disruption",
+      "Links sent via SMS/WhatsApp redirecting to unverified web pages asking for net banking credentials and OTP"
+    ],
+    "actionRecommendations": [
+      "Never share OTPs with anyone on call, SMS, or WhatsApp under any pretext",
+      "Read the full OTP SMS text: check the exact transaction amount and merchant name specified in the message",
+      "Contact your bank directly using the phone number printed on the back of your debit card",
+      "If OTP was shared, immediately lock your debit card/net banking through mobile app or IVR"
+    ]
+  },
+  {
+    "id": "otp-fraud-02",
+    "title": "Electricity Bill Disconnection & Utility SMS Scams",
+    "category": "OTP fraud",
+    "tags": ["electricity bill", "power disconnect", "utility scam", "remote access apk"],
+    "summary": "Urgent SMS claiming power/water supply will be cut off tonight at 9:30 PM due to unpaid bills, prompting calls to fake officer numbers or downloading malicious APKs.",
+    "content": "A widespread social engineering scam involves SMS notifications claiming: 'Dear consumer, your electricity power will be disconnected tonight at 9.30 pm from electricity office because your previous month bill was not updated. Please immediately contact our officer at 98xxxxxx.' When victims call, fraudsters instruct them to make a nominal payment of Rs. 10 via a provided link or ask them to install remote access apps (such as AnyDesk, QuickSupport, RustDesk, or malicious APKs). Once installed, fraudsters view OTPs on the screen and drain the victim's bank account.",
+    "threatIndicators": [
+      "SMS sent from random 10-digit mobile numbers rather than registered electricity board sender IDs",
+      "Specific threat of disconnection at a precise time (e.g., 'tonight at 9:30 PM')",
+      "Instructions to call a personal mobile number or download an app to update the bill",
+      "Request to pay a token amount of Rs. 5 or Rs. 10 using remote screen sharing"
+    ],
+    "actionRecommendations": [
+      "Check your bill status only on the official state power distribution portal or authorized consumer app",
+      "Never call numbers provided in unsolicited disconnection SMS",
+      "Never install screen sharing applications (AnyDesk, TeamViewer) at the request of strangers",
+      "Report fake numbers to Chakshu portal (sancharsaathi.gov.in) and 1930"
+    ]
+  },
+  {
+    "id": "phishing-01",
+    "title": "Phishing Websites, Spoofed URLs & Credential Harvesting",
+    "category": "Phishing",
+    "tags": ["phishing", "fake link", "typosquatting", "credential harvesting", "spoofing"],
+    "summary": "Malicious clone websites designed to impersonate banks, e-commerce stores, or government portals to capture usernames, passwords, and card numbers.",
+    "content": "Phishing attacks use deceptive websites and communications mimicking legitimate institutions (such as SBI, HDFC, Income Tax Department, Amazon, Netflix, courier delivery). Attackers employ typosquatting (e.g., sbi-kyc-update.com, netbanking-hdfc-secure.in) and free SSL certificates (showing the HTTPS lock icon) to deceive users. When users submit credentials, the attacker intercepts them in real-time to perform automated fraud. Look closely at domain names: subdomains like 'hdfcbank.secure-login.xyz' belong to 'secure-login.xyz', not 'hdfcbank.com'.",
+    "threatIndicators": [
+      "Mismatched or suspicious domain extensions (.xyz, .top, .info, .tk, .cc) claiming to be official banks or government sites",
+      "Generic greetings like 'Dear Customer' instead of your personalized account name",
+      "Unsolicited emails/messages demanding password resets or verification",
+      "Websites prompting for card PIN, CVV, and date of birth simultaneously on one form"
+    ],
+    "actionRecommendations": [
+      "Inspect the full domain name in the address bar before entering any sensitive info",
+      "Do not click links received in SMS or email; type the official website URL directly into your browser",
+      "Enable Two-Factor Authentication (2FA) with authenticator apps (TOTP) rather than SMS where supported",
+      "Report phishing URLs to CERT-In (incident@cert-in.org.in)"
+    ]
+  },
+  {
+    "id": "phishing-02",
+    "title": "Work From Home, Part-Time Telegram & YouTube Review Scams",
+    "category": "Phishing",
+    "tags": ["telegram scam", "job fraud", "youtube like scam", "crypto task scam", "ponzi"],
+    "summary": "Fraudsters offer easy work-from-home tasks like liking YouTube videos or writing hotel reviews, initially paying small rewards before demanding huge prepaid investments.",
+    "content": "Victims receive WhatsApp or Telegram messages offering part-time earnings of Rs. 2,000 to Rs. 8,000 daily by simply rating hotels on Google Maps or liking YouTube videos. Initially, scammers credit Rs. 150 to Rs. 500 to win trust. Then, the victim is added to a VIP Telegram group with paid shills showcasing fake high earnings. The victim is persuaded to take up 'prepaid merchant tasks' or 'crypto investment tasks', requiring deposits of Rs. 5,000, Rs. 50,000, or several lakhs. Once deposited, scammers block the victim and refuse withdrawal, citing fake tax or security deposits.",
+    "threatIndicators": [
+      "Unsolicited job offer on WhatsApp/Telegram with unrealistic payouts for trivial tasks",
+      "Requirement to join a Telegram group and transfer personal money for 'prepaid tasks' or 'system balance'",
+      "Payment received initially through random personal UPI accounts",
+      "Demands for additional penalty payments or taxes when attempting to withdraw accumulated earnings"
+    ],
+    "actionRecommendations": [
+      "Recognize that legitimate companies never require candidates to pay money to receive work or earnings",
+      "Do not send money to unknown individuals promising guaranteed multiplier returns",
+      "Exit and report suspicious Telegram channels and WhatsApp numbers",
+      "File a complaint on cybercrime.gov.in and freeze transaction accounts with your bank"
+    ]
+  },
+  {
+    "id": "identity-theft-01",
+    "title": "Identity Theft, PAN / Aadhaar Card Misuse & Synthetic Fraud",
+    "category": "Identity theft",
+    "tags": ["identity theft", "pan card fraud", "aadhaar masking", "sim card loan", "cibil score"],
+    "summary": "Cybercriminals use stolen Aadhaar numbers, PAN copies, and identity documents to take instant digital loans, register mule SIM cards, or open shell bank accounts.",
+    "content": "Identity theft occurs when sensitive Personally Identifiable Information (PII) like Aadhaar, PAN card, voter ID, and passport copies are stolen or leaked. Fraudsters use these documents to obtain instant personal loans through non-banking financial apps (NBFCs), issue fraudulent SIM cards in the victim's name for criminal syndicates, or open mule accounts. Victims only discover the fraud when recovery agents call or when their CIBIL/Experian credit score drops drastically due to defaulted loans.",
+    "threatIndicators": [
+      "Unrecognized loans or credit card inquiries appearing on your CIBIL / credit bureau report",
+      "Unknown mobile numbers registered against your Aadhaar (checked via TAFCOP portal)",
+      "Calls from collection agencies for accounts or credit facilities you never opened",
+      "Requests from unverified individuals/apps asking for photocopies of unmasked Aadhaar and signed blank cheques"
+    ],
+    "actionRecommendations": [
+      "Regularly monitor your credit report on CIBIL, CRIF, or Experian for unauthorized inquiries",
+      "Check registered SIMs under your name using the Department of Telecom TAFCOP portal (tafcop.sancharsaathi.gov.in)",
+      "Use Masked Aadhaar (where only last 4 digits are visible) for routine KYC submissions",
+      "Lock your Aadhaar biometrics using the official UIDAI mAadhaar app when not in use",
+      "File a cyber police report immediately if your identity documents are compromised"
+    ]
+  },
+  {
+    "id": "malware-01",
+    "title": "Malicious Android APKs & Remote Access Trojan (RAT) Traps",
+    "category": "Malware & Ransomware",
+    "tags": ["malicious apk", "rat", "screen sharing", "anydesk", "sideloading", "banking trojan"],
+    "summary": "Attackers send weaponized APK files masquerading as bank updates, reward apps, or traffic challan apps that steal SMS OTPs and control the device remotely.",
+    "content": "Cybercriminals distribute malicious Android Application Packages (.apk) via WhatsApp, Telegram, or spoofed SMS, naming them 'SBI_Rewards.apk', 'PM_Yojana_2024.apk', 'eChallan_Parivahan.apk', or 'Bank_Update.apk'. When installed, these apps request dangerous accessibility permissions and SMS read access. The malware operates in the background, intercepts incoming banking OTPs, forwards them to command-and-control servers, and suppresses notification alerts, allowing the criminal to drain accounts without the victim noticing.",
+    "threatIndicators": [
+      "File ending with '.apk' received over WhatsApp or SMS from unknown or unverified senders",
+      "App requesting Accessibility Services, Device Administrator privileges, or SMS read/write permissions",
+      "Prompts urging user to enable 'Install from Unknown Sources' in device security settings",
+      "Device exhibiting abnormal battery drain, overheating, or unauthorized automated touch actions"
+    ],
+    "actionRecommendations": [
+      "Never install APK files sent through messaging apps; download apps only from Google Play Store or Apple App Store",
+      "Keep Google Play Protect enabled on Android devices",
+      "If a malicious APK was installed, immediately turn on Airplane Mode, disconnect Wi-Fi, and boot into Safe Mode to uninstall the app",
+      "Perform a full factory reset of the phone and reset all banking passwords from another secure device"
+    ]
+  },
+  {
+    "id": "compliance-01",
+    "title": "Incident Response, Helpline 1930 & RBI Zero-Liability Guidelines",
+    "category": "Incident response & Law",
+    "tags": ["1930 helpline", "cybercrime.gov.in", "rbi guidelines", "golden hour", "zero liability"],
+    "summary": "Standard operating procedure for victims of online financial fraud in India to minimize loss and report incidents through official channels.",
+    "content": "If you become a victim of financial fraud in India, the first 1 to 2 hours are the 'Golden Hour' during which cyber police and nodal bank officers can track and freeze money in transit across intermediary accounts. Immediate action steps: 1. Call the National Cyber Crime Helpline '1930' immediately. Provide your transaction details, UTR number, bank name, debit card/account number, and fraudster details. 2. File a formal complaint at https://cybercrime.gov.in and download the acknowledgment copy. 3. Submit the acknowledgment copy to your bank within 3 days. Under RBI guidelines (Circular DBR.No.Leg.BC.78/09.07.005/2017-18), a customer has zero liability for unauthorized electronic banking transactions if reported within 3 days and there was no negligence on the customer's part (such as voluntarily sharing OTP/passwords).",
+    "threatIndicators": [
+      "Unauthorized debit SMS received from bank without initiating any transaction",
+      "Sudden loss of cellular network signal accompanied by unauthorized bank transfers (indicates SIM Swap fraud)"
+    ],
+    "actionRecommendations": [
+      "Dial 1930 immediately without delay; every minute counts in freezing the fraudster's mule account",
+      "Block all debit/credit cards, UPI handles, and net banking access via official bank app or phone banking",
+      "Register a formal complaint at cybercrime.gov.in with screenshots of messages, call logs, and bank statements",
+      "Submit written notice to your home branch manager within 72 hours for RBI zero-liability claim processing"
+    ]
+  }
+]
