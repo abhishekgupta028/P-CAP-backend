@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const axios = require('axios');
+const chatRouter = require('./routes/chat');
 require('dotenv').config();
 
 const app = express();
@@ -29,6 +30,9 @@ app.use(compression());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Mount RAG Chatbot & Analysis Routes
+app.use('/api/chat', chatRouter);
 
 // Rate limiting
 const limiter = rateLimit({
